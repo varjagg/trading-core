@@ -342,7 +342,7 @@ containing the objects specified by the predicates."
                                                            (char= c #\_)))
                                                      comparison-title)))
             (:buy-hold-data . ,(let* ((first t)
-                                      (first-trade (car (last (trades agent))))
+                                      (first-trade (car (last (trades (first agents)))))
                                       (first-trade-date (when (not (null first-trade))
                                                           (trade-timestamp first-trade)))
                                       prev-price
@@ -380,7 +380,7 @@ containing the objects specified by the predicates."
       (file-io:spit-file
         (mustache:render*
           (format nil "{{{> ~A}}}" template-name) analysis-context)
-        (merge-pathnames :name comparison-file *analysis-results-path*))
+        (merge-pathnames comparison-file *analysis-results-path*))
       (format t "~&The result comparison file can be found at this location: ~A~A"
               *analysis-results-path* comparison-file))))
 
